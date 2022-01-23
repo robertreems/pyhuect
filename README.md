@@ -1,5 +1,5 @@
 # Pyhuect
-The program is designed to set the light temperature of all my Philips lights based on the hour of the day.
+The program is designed to set the color temperature of all my Philips lights based on the hour of the day.
 
 The program has been build to run on Linux. It's been tested on Ubuntu 20.04 and Raspbian.
 
