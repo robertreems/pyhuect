@@ -8,6 +8,7 @@ import time
 import lights
 from pathlib import PurePath
 import os
+import requests
 
 print('started app')
 
@@ -35,5 +36,9 @@ except:
         raise ValueError('Failed to register app to Hue.')
 
 while True:
-    lights.lights(hueip, hueconf)
+    try:
+        lights.lights(hueip, hueconf)
+    except Exception as e:
+        logging.warning('Unhandled exception: {}'.format(e))
+    
     time.sleep(5)
