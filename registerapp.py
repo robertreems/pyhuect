@@ -1,13 +1,14 @@
-﻿# Registers this app to the Hue and returns the registered username.
+# Registers this app to the Hue and returns the registered username.
 # The username is generated automatically by the Hue.
 import logging
 import requests
+
 
 class Register:
     hueip = ''
     username = ''
 
-    def __init__(self,hueip):
+    def __init__(self, hueip):
         self.hueip = hueip
         self.register()
 
@@ -29,6 +30,5 @@ class Register:
             # response = requests.get(url)
             # json = response.json()
             # logging.info(json)
-            
-            logging.debug('registered user: {}'.format(self.username))
 
+            logging.debug('registered user: {}'.format(self.username))
