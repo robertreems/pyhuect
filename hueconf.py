@@ -1,9 +1,10 @@
-﻿# My first class
+# My first class
 # inspired by: https://www.w3schools.com/python/python_classes.asp
 
 from configparser import ConfigParser
 from pathlib import Path
 import logging
+
 
 class ConfigFile:
     hueIp = ''
@@ -33,15 +34,18 @@ class ConfigFile:
         hueinfo = self.config_object["Hue"]
         self.hueIp = hueinfo["ip"]
 
-        if "DONOTEDIT" in self.config_object:
-            donotedit = self.config_object["DONOTEDIT"]
-            self.username = donotedit["username"]
+        try:
+            if "DONOTEDIT" in self.config_object:
+                donotedit = self.config_object["DONOTEDIT"]
+                self.username = donotedit["username"]
+        except KeyError:
+            logging.warning('Could not read DONOTEDIT section')
+            self.username = ''
 
     def getusername(self):
         self.readconfig()
 
-        configsectiondonotedit = self.config_object["DONOTEDIT"]
-        return configsectiondonotedit["username"]
+        return self.username
 
     def setusername(self, username):
         self.username = username
@@ -59,7 +63,7 @@ class ConfigFile:
             self.config_object["DONOTEDIT"] = {
                 "username": self.username
             }
-        
+
         # Create parent directory
         configfile = Path(self.path)
         configfile.parent.mkdir(exist_ok=True)

@@ -1,6 +1,7 @@
-﻿import requests
+import requests
 import time
 import logging
+
 
 class lights:
     hueip = ''
@@ -46,10 +47,11 @@ class lights:
             23: '{"ct": 447}'
         }
 
-        current_time=time.localtime()
+        current_time = time.localtime()
 
         for light in lights:
-            url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/' + light + '/state'
+            url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/' \
+                + light + '/state'
             response = requests.put(url, schema[current_time.tm_hour])
             json = response.json()
             logging.debug(json)
