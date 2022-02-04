@@ -8,10 +8,14 @@ import time
 import lights
 from pathlib import PurePath
 import os
+import cli
 
 print('started app')
 
-logging.basicConfig(level=logging.DEBUG)
+cli = cli.cliclass()
+
+if cli.args.verbose:
+    logging.basicConfig(level=logging.DEBUG)
 
 # Get the configuration from user profile
 configfile = PurePath(os.environ['HOME']).joinpath('.hue', 'hueconf.ini')
