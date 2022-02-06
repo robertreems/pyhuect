@@ -1,32 +1,29 @@
 import requests
 import time
 import logging
-import colortempschema
-from pathlib import PurePath
-import os
 
 
 class lights:
     hueip = ''
     hueconf = ''
-    colortempschemafile = PurePath(os.environ['HOME']).joinpath('.hue', 'colortempschema.json')
-    schema = colortempschema.colortempschema()
-    schema.readschema(colortempschemafile)
+    schema = ''  # The light schema from json file.
 
-    def __init__(self, hueip, hueconf):
+    def __init__(self, hueip, hueconf, schema):
         self.hueip = hueip
         self.hueconf = hueconf
+        self.schema = schema
 
         self.setlights()
 
     def setlights(self):
-        # Get and print all lights
+        # Get all lights.
         url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/'
         response = requests.get(url)
         lights = response.json()
 
         current_time = time.localtime()
 
+        # Set the state of each light.
         for light in lights:
             url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/' \
                 + light + '/state'
