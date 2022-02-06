@@ -15,7 +15,9 @@ print('started app')
 cli = cli.cliclass()
 
 if cli.args.verbose:
-    logging.basicConfig(level=logging.DEBUG)
+    # Set the root loggig level
+    logger = logging.getLogger()  # get the root
+    logger.setLevel(logging.DEBUG)
 
 # Get the configuration from user profile
 configfile = PurePath(os.environ['HOME']).joinpath('.hue', 'hueconf.ini')
