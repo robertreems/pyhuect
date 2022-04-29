@@ -1,0 +1,1 @@
+﻿CONFIG_FILE = '/etc/rvr/config.ini'

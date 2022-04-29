@@ -13,7 +13,7 @@ class Register:
         self.register()
 
     def register(self):
-        logging.info('registering on {}'.format(self.hueip))
+        logging.info('registering on {}'.format(self.hueip)) # todo replace with base
         url = 'http://' + str(self.hueip) + '/api'
         postdata = '{"devicetype": "MyfirstApp"}'
 
@@ -21,14 +21,10 @@ class Register:
         json = response.json()
 
         if 'error' in json[0]:
-            raise ValueError(json[0]['error']['description'])
+            raise RuntimeError(json[0]['error']['description'])
         elif 'success' in json[0]:
             logging.info('success!')
             self.username = json[0]['success']['username']
 
-            # url = 'http://' + str(self.hueip) + '/api/' + username
-            # response = requests.get(url)
-            # json = response.json()
-            # logging.info(json)
-
+            # todo: Replase with base functionality
             logging.debug('registered user: {}'.format(self.username))

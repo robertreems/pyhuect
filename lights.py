@@ -1,6 +1,5 @@
 import requests
 import time
-import logging
 
 
 class lights:
@@ -17,7 +16,8 @@ class lights:
 
     def setlights(self):
         # Get all lights.
-        url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/'
+        url = 'http://' + str(self.hueip) + '/api/' + \
+            self.hueconf.username + '/lights/'
         response = requests.get(url)
         lights = response.json()
 
@@ -31,6 +31,5 @@ class lights:
             colortemp = [x['ct'] for x in self.schema.getschema()['schema'] if x['hour']
                          == current_time.tm_hour][0]
             lightconfig = '{"ct": ' + str(colortemp) + '}'
+            # todo raise runtime error if response is not 200. Log the error with base.
             response = requests.put(url, lightconfig)
-            json = response.json()
-            logging.debug(json)
