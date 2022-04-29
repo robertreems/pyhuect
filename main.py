@@ -9,13 +9,16 @@ import lights
 from pathlib import PurePath
 import os
 import cli
+import colortempschema
 
 print('started app')
 
 cli = cli.cliclass()
 
 if cli.args.verbose:
-    logging.basicConfig(level=logging.DEBUG)
+    # Set the root loggig level
+    logger = logging.getLogger()  # get the root
+    logger.setLevel(logging.DEBUG)
 
 # Get the configuration from user profile
 configfile = PurePath(os.environ['HOME']).joinpath('.hue', 'hueconf.ini')
@@ -24,6 +27,10 @@ hueconf = hueconf.ConfigFile(configfile)
 hueip = ipaddress.ip_address(hueconf.hueIp)
 
 username = hueconf.getusername()
+
+colortempschemafile = PurePath(os.environ['HOME']).joinpath('.hue', 'colortempschema.json')
+schema = colortempschema.colortempschema()
+schema.readschema(colortempschemafile)
 
 if username:
     username = hueconf.getusername()
@@ -38,7 +45,7 @@ else:
 
 while True:
     try:
-        lights.lights(hueip, hueconf)
+        lights.lights(hueip, hueconf, schema)
     except Exception as e:
         logging.warning('Unhandled exception: {}'.format(e))
 
