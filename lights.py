@@ -1,6 +1,7 @@
 import requests
 import time
-import logging
+
+from constants import ERR_UNEXPECTED_HTTP_RESPONSE
 
 
 class lights:
@@ -17,7 +18,8 @@ class lights:
 
     def setlights(self):
         # Get all lights.
-        url = 'http://' + str(self.hueip) + '/api/' + self.hueconf.username + '/lights/'
+        url = 'http://' + str(self.hueip) + '/api/' + \
+            self.hueconf.username + '/lights/'
         response = requests.get(url)
         lights = response.json()
 
@@ -32,5 +34,7 @@ class lights:
                          == current_time.tm_hour][0]
             lightconfig = '{"ct": ' + str(colortemp) + '}'
             response = requests.put(url, lightconfig)
-            json = response.json()
-            logging.debug(json)
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    ERR_UNEXPECTED_HTTP_RESPONSE.format(response.status_code))

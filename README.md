@@ -3,7 +3,9 @@ The program is designed to set the color temperature of all my Philips lights ba
 
 The program has been build to run on Linux. It's been tested on Ubuntu 20.04 and Raspbian 11.
 
-## first usage
+## First usage
+Make sure to have pip module rvr-base installed. See requirements.txt for the info.
+
 Create the lights schema file in file ~/.hue/colortempschema.json. The file should have the following schema:
 ```
 {
@@ -43,7 +45,7 @@ This section has the IP key. You can set this yourself. But aren't obligated to 
 2. [DONOTEDIT]
 This section is fully managed by the program. Do not edit it yourself unless you know the username and want to set it yourself.
 
-# usage of the program
+# Usage of the program
 As stated before, you'll have to execute the main.py file.
 
 # A note from Robert
@@ -54,5 +56,6 @@ I might add future features like:
 - Pausing the program.
 - Web interface
 - Parameterized configuration
+- Use the rvr-base module to read (and write) the configuration file.
 
 Furthermore I like to learn more about Python code quality and best practices. So expect frequent refactoring without providing new functionality.
