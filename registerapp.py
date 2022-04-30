@@ -13,7 +13,6 @@ class Register:
         self.register()
 
     def register(self):
-        logging.info('registering on {}'.format(self.hueip)) # todo replace with base
         url = 'http://' + str(self.hueip) + '/api'
         postdata = '{"devicetype": "MyfirstApp"}'
 
@@ -25,6 +24,3 @@ class Register:
         elif 'success' in json[0]:
             logging.info('success!')
             self.username = json[0]['success']['username']
-
-            # todo: Replase with base functionality
-            logging.debug('registered user: {}'.format(self.username))

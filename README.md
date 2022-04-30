@@ -43,7 +43,7 @@ This section has the IP key. You can set this yourself. But aren't obligated to 
 2. [DONOTEDIT]
 This section is fully managed by the program. Do not edit it yourself unless you know the username and want to set it yourself.
 
-# usage of the program
+# Usage of the program
 As stated before, you'll have to execute the main.py file.
 
 # A note from Robert

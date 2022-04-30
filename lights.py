@@ -1,6 +1,8 @@
 import requests
 import time
 
+from constants import ERR_UNEXPECTED_HTTP_RESPONSE
+
 
 class lights:
     hueip = ''
@@ -31,5 +33,8 @@ class lights:
             colortemp = [x['ct'] for x in self.schema.getschema()['schema'] if x['hour']
                          == current_time.tm_hour][0]
             lightconfig = '{"ct": ' + str(colortemp) + '}'
-            # todo raise runtime error if response is not 200. Log the error with base.
             response = requests.put(url, lightconfig)
+
+            if response.status_code != 200:
+                raise RuntimeError(
+                    ERR_UNEXPECTED_HTTP_RESPONSE.format(response.status_code))

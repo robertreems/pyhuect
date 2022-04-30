@@ -6,17 +6,13 @@ Inspired by:
 https://www.geeksforgeeks.org/read-json-file-using-python/
 """
 
-import logging #todo remove
 import json
 
 
-class colortempschema:
+class Colortempschema:
     jsoncolortempschema = None
 
     def readschema(self, schemafilepath):
-        # todo replace with base logging functionality
-        logging.debug('reading file: ' + str(schemafilepath))
-
         schemafile = open(schemafilepath)
         self.jsoncolortempschema = json.load(schemafile)
 
